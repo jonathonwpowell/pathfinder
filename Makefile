@@ -1,1 +1,2 @@
-g++ -o -Wall pathFinder pathFinder.cc
+all:	
+	g++ -Wall pathFinder.cc
