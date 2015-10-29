@@ -1,4 +1,5 @@
 #include <queue>
+#include <stack>
 #include <iostream>
 #include <limits.h>
 /**
@@ -13,19 +14,6 @@ struct node
 	int isPassable; //1 if passable, 0 if not
 };
 
-int main()
-{
-	unsigned char pMap[] = {1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1};
-	int pOutBuffer[12];
-	int dist = FindPath(0, 0, 1, 2, pMap, 4, 3, pOutBuffer, 12);
-	std::cout << "return(should be 3): " + dist;
-
-	unsigned char pMap[] = {0, 0, 1, 0, 1, 1, 1, 0, 1};
-	int pOutBuffer[7];
-	dist = FindPath(2, 0, 0, 2, pMap, 3, 3, pOutBuffer, 7);
-	std::cout << "return(should be -1): " + dist;
-}
-
 int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 	const int nTargetY, const unsigned char* pMap,
 	const int nMapWidth, const int nMapHeight, int* pOutBuffer,
@@ -36,7 +24,7 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 		|| nStartY < 0 || nStartY >= nMapHeight || nOutBufferSize < 0)
 	{
 		std::cout << "Assumtions not true";
-		exit(-1);
+		return(-1);
 	}
 
 	//check if the destination is the start
@@ -45,7 +33,7 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 
 	//create array of nodes, one for each spot on the map
 	int arraySize = nMapWidth * nMapHeight;
-	struct node nodes[arraySize]
+	struct node nodes[arraySize];
 
 	//initialize each node
 	for(int i = 0; i < arraySize; i++){
@@ -56,7 +44,7 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 	}
 	
 	//create a priority queue for storing nodes to process
-	std::priority_queue<int> queue;
+	std::queue<int> queue;
 
 	//push the start location onto the queue
 	//only pushes the location in the map array
@@ -67,7 +55,8 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 
 	while(!queue.empty()){
 		//get the next node in the queue
-		int curr = queue.pop(); 
+		int curr = queue.front();
+	    queue.pop();	
 
 		//if the current node is the target, break while loop
 		if (curr == nTargetY * nMapWidth + nTargetX)
@@ -108,7 +97,7 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 		{
 			//if it is possibly part of a shorter path and passable
 			if (nodes[curr-nMapWidth].dist > nodes[curr].dist + 1 
-					&& pMap[curr-mMapWidth] == 1)
+					&& pMap[curr-nMapWidth] == 1)
 			{
 				//update the distance from source to the new value
 				nodes[curr-nMapWidth].dist = nodes[curr].dist + 1;
@@ -133,19 +122,49 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 				queue.push(curr+nMapWidth);
 			}
 		}
+	}
 		
-		
-		//return -1 if no path
-		if (nodes[nTargetY * nMapWidth + nTargetX].prev == -1)
-			return -1;
+	//return -1 if no path
+	if (nodes[nTargetY * nMapWidth + nTargetX].prev == -1)
+		return -1;
 
-		//stack for finding the path between the source and dest
-		std::stack<int> pathStack;
+	//stack for finding the path between the source and dest
+	std::stack<int> pathStack;
+	
+	//current node in finding path back
+	int curr = nTargetY * nMapWidth + nTargetX;
+	//while the previous node is not the source
+	while(nodes[curr].prev != nStartY * nMapWidth + nStartX)
+	{
+		//change curr to the prev node, and prev node to the stack
+		pathStack.push(nodes[curr].prev);
+		curr = nodes[curr].prev;
+	}
 
+	int numAdded = 0;  //used to make sure the buffer size is not exceeded
 
-		//return the distance if there is a path
-		return nodes[nTargetY * nMapWidth + nTargetX].dist;
+	//add the values in the stack to the pOutBuffer
+	while(!pathStack.empty() && numAdded < nOutBufferSize)
+	{
+		pOutBuffer[numAdded] = pathStack.top();
+		pathStack.pop();
 	}
 
 
+	//return the distance if there is a path
+	return nodes[nTargetY * nMapWidth + nTargetX].dist;
+}
+int main()
+{
+	unsigned char pMap[] = {1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1};
+	int pOutBuffer[12];
+	int dist = FindPath(0, 0, 1, 2, pMap, 4, 3, pOutBuffer, 12);
+	std::cout << "return (should be 3): " << dist;
+	std::cout << "\n";
+
+	unsigned char pMap2[] = {0, 0, 1, 0, 1, 1, 1, 0, 1};
+	int pOutBuffer2[7];
+	dist = FindPath(2, 0, 0, 2, pMap2, 3, 3, pOutBuffer2, 7);
+	std::cout << "return(should be -1): " << dist;
+	std::cout << "\n";
 }
