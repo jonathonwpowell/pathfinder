@@ -134,12 +134,14 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 	//current node in finding path back
 	int curr = nTargetY * nMapWidth + nTargetX;
 	//while the previous node is not the source
-	while(nodes[curr].prev != nStartY * nMapWidth + nStartX)
+	while(curr != nStartY * nMapWidth + nStartX)
 	{
 		//change curr to the prev node, and prev node to the stack
-		pathStack.push(nodes[curr].prev);
+		std::cout << curr << " ";
+		pathStack.push(curr);
 		curr = nodes[curr].prev;
 	}
+	std::cout << "\n";
 
 	int numAdded = 0;  //used to make sure the buffer size is not exceeded
 
@@ -148,6 +150,7 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 	{
 		pOutBuffer[numAdded] = pathStack.top();
 		pathStack.pop();
+		numAdded++;
 	}
 
 
@@ -161,10 +164,25 @@ int main()
 	int dist = FindPath(0, 0, 1, 2, pMap, 4, 3, pOutBuffer, 12);
 	std::cout << "return (should be 3): " << dist;
 	std::cout << "\n";
+	for (int i = 0; i < dist; i++)
+		std::cout << pOutBuffer[i] << " ";	
+	std::cout << "\n";
 
 	unsigned char pMap2[] = {0, 0, 1, 0, 1, 1, 1, 0, 1};
 	int pOutBuffer2[7];
 	dist = FindPath(2, 0, 0, 2, pMap2, 3, 3, pOutBuffer2, 7);
-	std::cout << "return(should be -1): " << dist;
+	std::cout << "return (should be -1): " << dist;
+	std::cout << "\n";
+	for (int i = 0; i < dist; i++)
+		std::cout << pOutBuffer2[i] << " ";	
+	std::cout << "\n";
+
+	unsigned char pMap3[] = {1, 0, 0, 1, 0, 0, 1, 1, 1};
+	int pOutBuffer3[7];
+	dist = FindPath(0, 0, 2, 2, pMap3, 3, 3, pOutBuffer3, 7);
+	std::cout << "return (should be 4): " << dist;
+	std::cout << "\n";
+	for (int i = 0; i < dist; i++)
+		std::cout << pOutBuffer3[i] << " ";	
 	std::cout << "\n";
 }
