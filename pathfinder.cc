@@ -22,10 +22,11 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 {
 	//make sure assumtions are true
 	if (nMapHeight < 1 || nMapWidth < 1 || nStartX < 0 || nStartX >= nMapWidth
-		|| nStartY < 0 || nStartY >= nMapHeight || nOutBufferSize < 0)
+		|| nStartY < 0 || nStartY >= nMapHeight || nOutBufferSize < 0
+		|| pMap[nTargetY * nMapWidth + nTargetY] != 1)
 	{
-		std::cout << "Assumtions not true";
-		return(-1);
+		//return -2 to signify error in input
+		return(-2);
 	}
 
 	//check if the destination is the start
