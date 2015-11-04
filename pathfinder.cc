@@ -4,7 +4,8 @@
 #include <limits.h>
 #include "pathfinder.h"
 /**
-Author: Jonathon Powell
+* Author: Jonathon Powell
+*
 */
 struct node
 {
@@ -23,7 +24,7 @@ int FindPath(const int nStartX, const int nStartY, const int nTargetX,
 	//make sure assumtions are true
 	if (nMapHeight < 1 || nMapWidth < 1 || nStartX < 0 || nStartX >= nMapWidth
 		|| nStartY < 0 || nStartY >= nMapHeight || nOutBufferSize < 0
-		|| pMap[nTargetY * nMapWidth + nTargetY] != 1)
+		|| pMap[nTargetY * nMapWidth + nTargetX] != 1)
 	{
 		//return -2 to signify error in input
 		return(-2);

@@ -1,0 +1,47 @@
+-------- Starting Testing ---------
+
+Base Test:
+return (should be 3): 3
+pOutBuffer: 1 5 9 
+
+Base Fail Test:
+return (should be -1): -1
+pOutBuffer: 
+
+Follow Edge Test:
+return (should be 4): 4
+pOutBuffer: 3 6 7 8 
+
+No Wrap Around Test:
+return (should be -1): -1
+pOutBuffer: 
+
+Line L to R Test:
+return (should be 7): 7
+pOutBuffer: 1 2 3 4 5 6 7 
+
+Line R to L Test:
+return (should be 7): 7
+pOutBuffer: 6 5 4 3 2 1 0 
+
+Line top to bottom Test:
+return (should be 7): 7
+pOutBuffer: 1 2 3 4 5 6 7 
+
+Line bottom to top Test:
+return (should be 7): 7
+pOutBuffer: 6 5 4 3 2 1 0 
+
+Short Buffer Test:
+return (should be 7): 7
+pOutBuffer: 6 5 4 3 
+
+Invalid Input Test:
+return (should be -2): -2
+
+Big Test:
+Return (should be 95): 95
+pOutBuffer: 41 80 119 158 197 236 275 314 353 392 393 394 395 396 397 398 399 400 401 402 403 404 405 406 407 446 485 484 523 522 521 482 481 480 519 558 597 636 637 638 639 640 641 680 719 720 721 722 723 724 725 686 647 608 609 610 611 612 613 574 535 496 495 494 455 416 377 338 299 260 221 182 143 104 105 106 107 146 185 224 263 302 341 342 343 344 345 346 347 348 387 426 465 504 503 
+
+Please see testing plan for expected pOutBuffer Results
+--------------- Finished Testing :) -------------------

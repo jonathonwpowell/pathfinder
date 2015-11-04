@@ -1,8 +1,11 @@
 README:
 
 Author: Jonathon Powell
+
 A simple pathfinder algorithm for a 2-d array of passable/impassible locations
 as well as tests for it
+
+Compiled with g++ on Ubuntu 14.04LTS
 
 Files:
 tester.cc
@@ -11,6 +14,7 @@ pathfinder.h
 Makefile
 Pathfinder Test Plan.docx
 README.md
+test_results.txt
 
 File Descriptions:
 
@@ -43,3 +47,7 @@ Makefile
 
 README
 	Please see README for details about README
+
+test_results.txt
+	Output of path_finder_test into a text document
+	May or may not be up to date
