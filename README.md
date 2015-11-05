@@ -3,7 +3,8 @@ README:
 Author: Jonathon Powell
 
 A simple pathfinder algorithm for a 2-d array of passable/impassible locations
-as well as tests for it
+as well as tests for it.  It is an implementation of Dijkstra's algorithm,
+details of which can be found at https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 Compiled with g++ on Ubuntu 14.04LTS
 
