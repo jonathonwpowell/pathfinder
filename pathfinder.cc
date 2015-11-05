@@ -5,7 +5,7 @@
 #include "pathfinder.h"
 /**
 * Author: Jonathon Powell
-*
+* More info at https://github.com/jonathonwpowell/pathfinder
 */
 struct node
 {
